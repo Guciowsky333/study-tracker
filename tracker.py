@@ -22,14 +22,45 @@ def format_time(time_in_seconds:int) -> str:
 def calculate_streak(last_date:str, streak:int) -> int:
     now = date.today()
     last_date = datetime.strptime(last_date, "%Y-%m-%d").date()
+
+
     if last_date == now - timedelta(days=1):
-        streak += 1
-    else:
-        streak = 1
-    return streak
+        return streak + 1
+
+    if last_date == now:
+        return streak
+    return 1
 
 
-=
+if __name__ == "__main__":
+    today = date.today()
+    with open("date.json") as f:
+        data = json.load(f)
+
+    start_time = time.perf_counter()
+
+    input("Press ENTER to stop:")
+    end_time = time.perf_counter()
+
+
+    session = end_time - start_time
+
+
+    current_streak = calculate_streak(data["last_date"], data["streak"])
+
+    new_data ={
+        "last_date": today.strftime("%Y-%m-%d"),
+        "streak": current_streak,
+        "total_time": data["total_time"] + session,
+    }
+
+    with open("date.json", "w") as f:
+        json.dump(new_data, f)
+
+
+
+
+
 
 
 
