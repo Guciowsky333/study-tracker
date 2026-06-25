@@ -1,6 +1,8 @@
 import json
 import time
 from datetime import datetime, timedelta, date
+from dotenv import load_dotenv
+load_dotenv()
 import requests
 
 
@@ -31,6 +33,7 @@ def calculate_streak(last_date:str, streak:int) -> int:
     if last_date == now:
         return streak
     return 1
+
 
 
 if __name__ == "__main__":
